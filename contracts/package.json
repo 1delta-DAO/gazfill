@@ -8,9 +8,9 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@fuel-ts/errors": "workspace:^",
-    "@fuel-ts/account": "workspace:^",
-    "fuels": "workspace:*"
+    "@fuel-ts/errors": "^0.93.0",
+    "@fuel-ts/account": "^0.93.0",
+    "fuels": "^0.93.0"
   },
   "version": "0.0.0"
 }

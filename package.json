@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "pnpm run -F frontend dev",
+    "build": "pnpm run -F frontend build",
+    "start": "pnpm run -F frontend start",
+    "node": "pnpm run -F contracts node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
-    "packages/*"
+    "frontend",
+    "contracts"
   ],
   "packageManager": "pnpm@9.1.2",
   "keywords": [],
