@@ -1,24 +1,41 @@
 {
   "name": "gazfill",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "dev": "pnpm run -F frontend original:start",
-    "build": "pnpm run -F frontend build",
-    "start": "pnpm run -F frontend start",
-    "node": "pnpm run -F contracts node",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "fuels build",
+    "fuels:dev": "fuels dev",
+    "dev": "next dev",
+    "build": "npm run prebuild && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest"
   },
-  "workspaces": [
-    "frontend",
-    "contracts"
-  ],
-  "packageManager": "pnpm@9.1.2",
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
+  "dependencies": {
+    "@fuels/connectors": "^0.8.1",
+    "@fuels/react": "^0.20.0",
+    "@tanstack/react-query": "^5.51.15",
+    "@wagmi/connectors": "^5.1.4",
+    "@wagmi/core": "^2.13.3",
+    "dotenv": "^16.4.5",
+    "fuels": "0.93.0",
+    "next": "14.2.5",
+    "react": "^18.3",
+    "react-dom": "^18.3",
+    "react-hot-toast": "^2.4.1",
+    "react-use": "^17.5.1",
+    "viem": "2.x"
+  },
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "@types/node": "^20",
+    "@types/react": "^18.3",
+    "@types/react-dom": "^18.3",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.7",
+    "typescript": "~5.4.5",
+    "vitest": "^1.6.0"
   }
 }
