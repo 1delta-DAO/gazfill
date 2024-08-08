@@ -67,11 +67,8 @@ impl OrderSettlement for Contract {
     // The `get_count` function returns the current value of the counter.
     #[storage(read)]
     fn get_order_hash(order: LimitOrder) -> b256 {
-        let x: u64 = 342432;
-
-        let mut encoded_order: Bytes = order.maker.bits().to_be_bytes();
-
-        encoded_order.append(order.maker_token.to_be_bytes());
+        // Progressively append the order data as bytes
+        let mut encoded_order: Bytes = order.maker_token.to_be_bytes();
         encoded_order.append(order.taker_token.to_be_bytes());
         encoded_order.append(order.maker_amount.to_be_bytes());
         encoded_order.append(order.taker_amount.to_be_bytes());
