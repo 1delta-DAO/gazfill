@@ -1,14 +1,16 @@
 import { launchTestNode } from 'fuels/test-utils';
 
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, beforeAll } from 'vitest';
 
 /**
  * Imports for the contract factory and bytecode, so that we can use them in the test.
  *
  * Can't find these imports? Make sure you've run `fuels build` to generate these with typegen.
  */
-import { TestContractAbi__factory } from '../src/sway-api';
-import bytecode from '../src/sway-api/contracts/TestContractAbi.hex';
+import { OrdersAbi, OrdersAbi__factory } from '../src/sway-api';
+import bytecode from '../src/sway-api/contracts/OrdersAbi.hex';
+import { AbstractAddress, B256Address, keccak256, toBytes, WalletUnlocked } from 'fuels';
+import { AddressInput, LimitOrderInput } from '@/sway-api/contracts/OrdersAbi';
 
 /**
  * Contract Testing
@@ -17,7 +19,8 @@ import bytecode from '../src/sway-api/contracts/TestContractAbi.hex';
  * Tests for the contract program type within the TS SDK. Here we will test the deployment of
  * our contract, and the result of call it's functions.
  */
-describe('Contract', () => {
+describe('Orders', () => {
+
   test('Deploy and Call', async () => {
     // First, we'll launch a test node, passing the contract factory and bytecode. This will deploy the contract
     // to our test node so we can test against it.
@@ -26,7 +29,7 @@ describe('Contract', () => {
       // because we are instantiating it with the `using` keyword.
       contractsConfigs: [
         {
-          deployer: TestContractAbi__factory,
+          deployer: OrdersAbi__factory,
           bytecode,
         },
       ],
@@ -35,28 +38,48 @@ describe('Contract', () => {
     // We can now destructure the contract from the launched object.
     const {
       contracts: [contract],
+      wallets: [user]
     } = launched;
 
+    const order: LimitOrderInput = {
+      maker_token: user.address.toB256(),
+      taker_token: user.address.toB256(),
+      maker_amount: 10000,
+      taker_amount: 10000,
+      maker: { bits: user.address.toB256() },
+      taker: { bits: user.address.toB256() },
+      nonce: '0',
+      expriy: '0',
+      traits: user.address.toB256(),
+    }
     // Lets setup some values to use in the test.
     const initialCount = 0;
     const incrementedCount = 5;
 
     // We can now call the contract functions and test the results. Lets assert the initial value of the counter.
-    const { waitForResult: initWaitForResult } = await contract.functions.get_count().call();
-    const { value: initValue } = await initWaitForResult();
-    expect(initValue.toNumber()).toBe(initialCount);
+    const { waitForResult: initWaitForResult } = await contract.functions.get_order_hash(order).call();
+    const { value: hash } = await initWaitForResult();
+    console.log("hash", hash)
+    console.log("0x" + hex(keccak256(Buffer.from("s"))))
+    // expect(initValue.toNumber()).toBe(initialCount);
 
-    // Next, we'll increment the counter by 5 and assert the new value.
-    const { waitForResult: incrementWaitForResult } = await contract.functions
-      .increment_counter(incrementedCount)
-      .call();
-    const { value: incrementValue } = await incrementWaitForResult();
-    expect(incrementValue.toNumber()).toBe(incrementedCount);
-
-    // Finally, we'll test the get count function again to ensure parity.
-    const { waitForResult: finalWaitForResult } = await contract.functions.get_count().call();
-    const { value: finalValue } = await finalWaitForResult();
-    expect(finalValue.toNumber()).toBe(incrementedCount);
-    expect(initValue.toNumber()).toBeLessThan(finalValue.toNumber());
   });
 });
+
+
+function hex(arrayBuffer: any) {
+  const byteToHex = [];
+
+  for (let n = 0; n <= 0xff; ++n) {
+    const hexOctet = n.toString(16).padStart(2, "0");
+    byteToHex.push(hexOctet);
+  }
+
+  const buff = new Uint8Array(arrayBuffer);
+  const hexOctets = []; // new Array(buff.length) is even faster (preallocates necessary array size), then use hexOctets[i] instead of .push()
+
+  for (let i = 0; i < buff.length; ++i)
+    hexOctets.push(byteToHex[buff[i]]);
+
+  return hexOctets.join("");
+}
