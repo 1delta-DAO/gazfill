@@ -9,7 +9,7 @@ import { describe, test, expect, beforeAll } from 'vitest';
  */
 import { OrdersAbi, OrdersAbi__factory } from '../src/sway-api';
 import bytecode from '../src/sway-api/contracts/OrdersAbi.hex';
-import { AbstractAddress, B256Address, concatBytes, keccak256, toBytes, WalletUnlocked } from 'fuels';
+import { AbstractAddress, B256Address, concatBytes, hashMessage, keccak256, Signer, toBytes, WalletUnlocked } from 'fuels';
 import { AddressInput, LimitOrderInput } from '@/sway-api/contracts/OrdersAbi';
 
 /**
@@ -61,21 +61,21 @@ describe('Orders', () => {
     const { waitForResult: initWaitForResultBytes } = await contract.functions.pack_order(order).call();
     const { value: orderBytes } = await initWaitForResultBytes();
 
-    
-    let data:Uint8Array;
+
+    let data: Uint8Array;
     data = toBytes(order.maker_token)
     // toBytes([])
 
     data = concatBytes([
-      toBytes(order.maker_token),
-      toBytes(order.maker_token),
+      toBytes(order.maker_token, 32),
+      toBytes(order.maker_token, 32),
       toBytes(order.maker_amount, 8),
       toBytes(order.taker_amount, 8),
-      toBytes(order.maker.bits),
-      toBytes(order.taker.bits),
+      toBytes(order.maker.bits, 32),
+      toBytes(order.taker.bits, 32),
       toBytes(order.nonce, 32),
       toBytes(order.expriy, 8),
-      toBytes(order.traits),
+      toBytes(order.traits, 32),
     ])
 
     console.log("orderBytes-actual", hex(orderBytes))
@@ -86,6 +86,21 @@ describe('Orders', () => {
     console.log("off-chain ", hex(keccak256(data as any)))
     // expect(initValue.toNumber()).toBe(initialCount);
 
+    const orderHash = hex(keccak256(data as any))
+
+    const signatureRaw = await user.signMessage(orderHash)
+    console.log("sig", signatureRaw)
+
+    const recoveredAddress = Signer.recoverAddress(orderHash, signatureRaw);
+    console.log("TS SDK EC Recover: ", recoveredAddress.toB256())
+
+    const { waitForResult: checkSig } = await contract.functions.recover_signer(
+      signatureRaw,
+      hashMessage(orderHash)
+    ).call()
+    const { value: signerOfHash } = await checkSig()
+
+    expect(signerOfHash.bits).to.equal(user.address.toB256())
   });
 });
 
