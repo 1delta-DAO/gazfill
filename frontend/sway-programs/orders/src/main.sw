@@ -28,6 +28,8 @@ abi OrderSettlement {
 
     #[storage(read)]
     fn get_order_hash(order: LimitOrder) -> b256;
+    #[storage(read)]
+    fn pack_order(order: LimitOrder) -> Bytes;
 }
 
 pub struct OrderState {
@@ -80,6 +82,22 @@ impl OrderSettlement for Contract {
 
         // hash the order
         keccak256((encoded_order))
+    }
+
+    #[storage(read)]
+    fn pack_order(order: LimitOrder) -> Bytes {
+        // Progressively append the order data as bytes
+        let mut encoded_order: Bytes = order.maker_token.to_be_bytes();
+        encoded_order.append(order.taker_token.to_be_bytes());
+        encoded_order.append(order.maker_amount.to_be_bytes());
+        encoded_order.append(order.taker_amount.to_be_bytes());
+        encoded_order.append(order.maker.bits().to_be_bytes());
+        encoded_order.append(order.taker.bits().to_be_bytes());
+        encoded_order.append(order.nonce.to_be_bytes());
+        encoded_order.append(order.expriy.to_be_bytes());
+        encoded_order.append(order.traits.to_be_bytes());
+
+        encoded_order
     }
 
     // The `increment_counter` function increments the counter by the given amount.

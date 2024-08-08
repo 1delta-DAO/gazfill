@@ -12,6 +12,7 @@
 import type {
   BigNumberish,
   BN,
+  Bytes,
   BytesLike,
   Contract,
   DecodedValue,
@@ -32,6 +33,7 @@ export interface OrdersAbiInterface extends Interface {
     get_count: FunctionFragment;
     get_order_hash: FunctionFragment;
     increment_counter: FunctionFragment;
+    pack_order: FunctionFragment;
     recover_signer: FunctionFragment;
   };
 }
@@ -43,6 +45,7 @@ export class OrdersAbi extends Contract {
     get_count: InvokeFunction<[], BN>;
     get_order_hash: InvokeFunction<[order: LimitOrderInput], string>;
     increment_counter: InvokeFunction<[amount: BigNumberish], BN>;
+    pack_order: InvokeFunction<[order: LimitOrderInput], Bytes>;
     recover_signer: InvokeFunction<[signature: string, msg_hash: string], AddressOutput>;
   };
 }

@@ -9,7 +9,7 @@ import { describe, test, expect, beforeAll } from 'vitest';
  */
 import { OrdersAbi, OrdersAbi__factory } from '../src/sway-api';
 import bytecode from '../src/sway-api/contracts/OrdersAbi.hex';
-import { AbstractAddress, B256Address, keccak256, toBytes, WalletUnlocked } from 'fuels';
+import { AbstractAddress, B256Address, concatBytes, keccak256, toBytes, WalletUnlocked } from 'fuels';
 import { AddressInput, LimitOrderInput } from '@/sway-api/contracts/OrdersAbi';
 
 /**
@@ -52,15 +52,38 @@ describe('Orders', () => {
       expriy: '0',
       traits: user.address.toB256(),
     }
-    // Lets setup some values to use in the test.
-    const initialCount = 0;
-    const incrementedCount = 5;
 
     // We can now call the contract functions and test the results. Lets assert the initial value of the counter.
     const { waitForResult: initWaitForResult } = await contract.functions.get_order_hash(order).call();
     const { value: hash } = await initWaitForResult();
-    console.log("hash", hash)
-    console.log("0x" + hex(keccak256(Buffer.from("s"))))
+
+    // We can now call the contract functions and test the results. Lets assert the initial value of the counter.
+    const { waitForResult: initWaitForResultBytes } = await contract.functions.pack_order(order).call();
+    const { value: orderBytes } = await initWaitForResultBytes();
+
+    
+    let data:Uint8Array;
+    data = toBytes(order.maker_token)
+    // toBytes([])
+
+    data = concatBytes([
+      toBytes(order.maker_token),
+      toBytes(order.maker_token),
+      toBytes(order.maker_amount, 8),
+      toBytes(order.taker_amount, 8),
+      toBytes(order.maker.bits),
+      toBytes(order.taker.bits),
+      toBytes(order.nonce, 32),
+      toBytes(order.expriy, 8),
+      toBytes(order.traits),
+    ])
+
+    console.log("orderBytes-actual", hex(orderBytes))
+    console.log("orderBytes-manual", hex(data))
+    console.log("------------------")
+    console.log("hash      ", hash)
+    console.log("reproduced", hex(keccak256(orderBytes as any)))
+    console.log("off-chain ", hex(keccak256(data as any)))
     // expect(initValue.toNumber()).toBe(initialCount);
 
   });
@@ -81,5 +104,5 @@ function hex(arrayBuffer: any) {
   for (let i = 0; i < buff.length; ++i)
     hexOctets.push(byteToHex[buff[i]]);
 
-  return hexOctets.join("");
+  return "0x" + hexOctets.join("");
 }
