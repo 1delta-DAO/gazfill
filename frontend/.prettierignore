@@ -1,0 +1,4 @@
+# Ignore artifacts:
+.fuels
+.next
+node_modules

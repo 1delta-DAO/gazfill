@@ -78,9 +78,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <link rel="icon" href="/fuel.ico" />
       </Head>
       <Toaster />
-      <div className="flex flex-col">
+      <div className="flex flex-col font-['Orbit']">
         <nav className="flex justify-between items-center p-4 bg-black text-white gap-6">
           <Link href="/">Home</Link>
+
+          <Link href="/trade">Trade</Link>
 
           <Link
             href={
@@ -113,7 +115,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
           )}
         </nav>
 
-        <div className="min-h-screen items-center p-24 flex flex-col gap-6">
+        <div className="min-h-screen items-center p-4 pt-0 flex flex-col gap-6">
           {children}
         </div>
       </div>

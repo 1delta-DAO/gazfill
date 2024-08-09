@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Gango';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gango'), url('https://fonts.cdnfonts.com/s/104102/gango-regularwide.woff') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Orbit';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Orbit'), url('https://fonts.cdnfonts.com/s/107304/Orbit-Regular.woff') format('woff');
+  }
+}
