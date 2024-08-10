@@ -22,6 +22,8 @@ import type {
   StrSlice,
 } from 'fuels';
 
+import type { Vec } from "./common";
+
 export type AddressInput = { bits: string };
 export type AddressOutput = AddressInput;
 export type LimitOrderInput = { maker_token: string, taker_token: string, maker_amount: BigNumberish, taker_amount: BigNumberish, maker: AddressInput, taker: AddressInput, nonce: BigNumberish, expriy: BigNumberish, traits: string };
@@ -35,6 +37,8 @@ export interface OrdersAbiInterface extends Interface {
     increment_counter: FunctionFragment;
     pack_order: FunctionFragment;
     recover_signer: FunctionFragment;
+    register_filling: FunctionFragment;
+    verify_settlement: FunctionFragment;
   };
 }
 
@@ -47,5 +51,7 @@ export class OrdersAbi extends Contract {
     increment_counter: InvokeFunction<[amount: BigNumberish], BN>;
     pack_order: InvokeFunction<[order: LimitOrderInput], Bytes>;
     recover_signer: InvokeFunction<[signature: string, msg_hash: string], AddressOutput>;
+    register_filling: InvokeFunction<[order_hashes: Vec<string>], void>;
+    verify_settlement: InvokeFunction<[order_hashes: Vec<string>], void>;
   };
 }

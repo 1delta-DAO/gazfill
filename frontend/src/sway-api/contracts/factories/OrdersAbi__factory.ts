@@ -18,70 +18,53 @@ const _abi = {
   "types": [
     {
       "typeId": 0,
+      "type": "()",
+      "components": [],
+      "typeParameters": null
+    },
+    {
+      "typeId": 1,
       "type": "[_; 2]",
       "components": [
         {
           "name": "__array_element",
-          "type": 1,
+          "type": 2,
           "typeArguments": null
         }
       ],
       "typeParameters": null
     },
     {
-      "typeId": 1,
+      "typeId": 2,
       "type": "b256",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 2,
-      "type": "raw untyped ptr",
-      "components": null,
-      "typeParameters": null
-    },
-    {
       "typeId": 3,
-      "type": "str",
+      "type": "generic T",
       "components": null,
       "typeParameters": null
     },
     {
       "typeId": 4,
-      "type": "struct Address",
-      "components": [
-        {
-          "name": "bits",
-          "type": 1,
-          "typeArguments": null
-        }
-      ],
+      "type": "raw untyped ptr",
+      "components": null,
       "typeParameters": null
     },
     {
       "typeId": 5,
-      "type": "struct B512",
-      "components": [
-        {
-          "name": "bits",
-          "type": 0,
-          "typeArguments": null
-        }
-      ],
+      "type": "str",
+      "components": null,
       "typeParameters": null
     },
     {
       "typeId": 6,
-      "type": "struct Bytes",
+      "type": "struct Address",
       "components": [
         {
-          "name": "buf",
-          "type": 8,
-          "typeArguments": null
-        },
-        {
-          "name": "len",
-          "type": 10,
+          "name": "bits",
+          "type": 2,
           "typeArguments": null
         }
       ],
@@ -89,50 +72,10 @@ const _abi = {
     },
     {
       "typeId": 7,
-      "type": "struct LimitOrder",
+      "type": "struct B512",
       "components": [
         {
-          "name": "maker_token",
-          "type": 1,
-          "typeArguments": null
-        },
-        {
-          "name": "taker_token",
-          "type": 1,
-          "typeArguments": null
-        },
-        {
-          "name": "maker_amount",
-          "type": 10,
-          "typeArguments": null
-        },
-        {
-          "name": "taker_amount",
-          "type": 10,
-          "typeArguments": null
-        },
-        {
-          "name": "maker",
-          "type": 4,
-          "typeArguments": null
-        },
-        {
-          "name": "taker",
-          "type": 4,
-          "typeArguments": null
-        },
-        {
-          "name": "nonce",
-          "type": 9,
-          "typeArguments": null
-        },
-        {
-          "name": "expriy",
-          "type": 10,
-          "typeArguments": null
-        },
-        {
-          "name": "traits",
+          "name": "bits",
           "type": 1,
           "typeArguments": null
         }
@@ -141,16 +84,16 @@ const _abi = {
     },
     {
       "typeId": 8,
-      "type": "struct RawBytes",
+      "type": "struct Bytes",
       "components": [
         {
-          "name": "ptr",
-          "type": 2,
+          "name": "buf",
+          "type": 10,
           "typeArguments": null
         },
         {
-          "name": "cap",
-          "type": 10,
+          "name": "len",
+          "type": 14,
           "typeArguments": null
         }
       ],
@@ -158,12 +101,125 @@ const _abi = {
     },
     {
       "typeId": 9,
+      "type": "struct LimitOrder",
+      "components": [
+        {
+          "name": "maker_token",
+          "type": 2,
+          "typeArguments": null
+        },
+        {
+          "name": "taker_token",
+          "type": 2,
+          "typeArguments": null
+        },
+        {
+          "name": "maker_amount",
+          "type": 14,
+          "typeArguments": null
+        },
+        {
+          "name": "taker_amount",
+          "type": 14,
+          "typeArguments": null
+        },
+        {
+          "name": "maker",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "taker",
+          "type": 6,
+          "typeArguments": null
+        },
+        {
+          "name": "nonce",
+          "type": 13,
+          "typeArguments": null
+        },
+        {
+          "name": "expriy",
+          "type": 14,
+          "typeArguments": null
+        },
+        {
+          "name": "traits",
+          "type": 2,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 10,
+      "type": "struct RawBytes",
+      "components": [
+        {
+          "name": "ptr",
+          "type": 4,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 14,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 11,
+      "type": "struct RawVec",
+      "components": [
+        {
+          "name": "ptr",
+          "type": 4,
+          "typeArguments": null
+        },
+        {
+          "name": "cap",
+          "type": 14,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": [
+        3
+      ]
+    },
+    {
+      "typeId": 12,
+      "type": "struct Vec",
+      "components": [
+        {
+          "name": "buf",
+          "type": 11,
+          "typeArguments": [
+            {
+              "name": "",
+              "type": 3,
+              "typeArguments": null
+            }
+          ]
+        },
+        {
+          "name": "len",
+          "type": 14,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": [
+        3
+      ]
+    },
+    {
+      "typeId": 13,
       "type": "u256",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 10,
+      "typeId": 14,
       "type": "u64",
       "components": null,
       "typeParameters": null
@@ -174,19 +230,19 @@ const _abi = {
       "inputs": [
         {
           "name": "txt",
-          "type": 3,
+          "type": 5,
           "typeArguments": null
         },
         {
           "name": "account",
-          "type": 4,
+          "type": 6,
           "typeArguments": null
         }
       ],
       "name": "generate_msg_hash",
       "output": {
         "name": "",
-        "type": 1,
+        "type": 2,
         "typeArguments": null
       },
       "attributes": [
@@ -203,7 +259,7 @@ const _abi = {
       "name": "get_count",
       "output": {
         "name": "",
-        "type": 10,
+        "type": 14,
         "typeArguments": null
       },
       "attributes": [
@@ -219,14 +275,14 @@ const _abi = {
       "inputs": [
         {
           "name": "order",
-          "type": 7,
+          "type": 9,
           "typeArguments": null
         }
       ],
       "name": "get_order_hash",
       "output": {
         "name": "",
-        "type": 1,
+        "type": 2,
         "typeArguments": null
       },
       "attributes": [
@@ -242,14 +298,14 @@ const _abi = {
       "inputs": [
         {
           "name": "amount",
-          "type": 10,
+          "type": 14,
           "typeArguments": null
         }
       ],
       "name": "increment_counter",
       "output": {
         "name": "",
-        "type": 10,
+        "type": 14,
         "typeArguments": null
       },
       "attributes": [
@@ -266,11 +322,39 @@ const _abi = {
       "inputs": [
         {
           "name": "order",
-          "type": 7,
+          "type": 9,
           "typeArguments": null
         }
       ],
       "name": "pack_order",
+      "output": {
+        "name": "",
+        "type": 8,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "signature",
+          "type": 7,
+          "typeArguments": null
+        },
+        {
+          "name": "msg_hash",
+          "type": 2,
+          "typeArguments": null
+        }
+      ],
+      "name": "recover_signer",
       "output": {
         "name": "",
         "type": 6,
@@ -288,27 +372,57 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "signature",
-          "type": 5,
-          "typeArguments": null
-        },
-        {
-          "name": "msg_hash",
-          "type": 1,
-          "typeArguments": null
+          "name": "order_hashes",
+          "type": 12,
+          "typeArguments": [
+            {
+              "name": "",
+              "type": 2,
+              "typeArguments": null
+            }
+          ]
         }
       ],
-      "name": "recover_signer",
+      "name": "register_filling",
       "output": {
         "name": "",
-        "type": 4,
+        "type": 0,
         "typeArguments": null
       },
       "attributes": [
         {
           "name": "storage",
           "arguments": [
-            "read"
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "order_hashes",
+          "type": 12,
+          "typeArguments": [
+            {
+              "name": "",
+              "type": 2,
+              "typeArguments": null
+            }
+          ]
+        }
+      ],
+      "name": "verify_settlement",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
           ]
         }
       ]
