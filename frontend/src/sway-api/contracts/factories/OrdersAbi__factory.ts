@@ -24,20 +24,60 @@ const _abi = {
     },
     {
       "typeId": 1,
-      "type": "[_; 2]",
-      "components": [
-        {
-          "name": "__array_element",
-          "type": 2,
-          "typeArguments": null
-        }
-      ],
+      "type": "b256",
+      "components": null,
       "typeParameters": null
     },
     {
       "typeId": 2,
-      "type": "b256",
-      "components": null,
+      "type": "enum Error",
+      "components": [
+        {
+          "name": "OrderNotDefined",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "OrderReenter",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "TryToFillMoreThanRequired",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "SentAssetIdDoesNotMatchMakerToken",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "SentAssetAmountDoesNotMatchFillAmount",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "InsufficientTakerTokensReceivedFromCallback",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "OnlySettlementCanInteract",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "AlreadyIntitialized",
+          "type": 0,
+          "typeArguments": null
+        },
+        {
+          "name": "MakerHasNotEnoughFunds",
+          "type": 0,
+          "typeArguments": null
+        }
+      ],
       "typeParameters": null
     },
     {
@@ -54,25 +94,7 @@ const _abi = {
     },
     {
       "typeId": 5,
-      "type": "str",
-      "components": null,
-      "typeParameters": null
-    },
-    {
-      "typeId": 6,
       "type": "struct Address",
-      "components": [
-        {
-          "name": "bits",
-          "type": 2,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": null
-    },
-    {
-      "typeId": 7,
-      "type": "struct B512",
       "components": [
         {
           "name": "bits",
@@ -83,17 +105,81 @@ const _abi = {
       "typeParameters": null
     },
     {
-      "typeId": 8,
+      "typeId": 6,
       "type": "struct Bytes",
       "components": [
         {
           "name": "buf",
-          "type": 10,
+          "type": 9,
           "typeArguments": null
         },
         {
           "name": "len",
-          "type": 14,
+          "type": 13,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 7,
+      "type": "struct LimitOrder",
+      "components": [
+        {
+          "name": "maker_token",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "taker_token",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "maker_amount",
+          "type": 13,
+          "typeArguments": null
+        },
+        {
+          "name": "taker_amount",
+          "type": 13,
+          "typeArguments": null
+        },
+        {
+          "name": "maker",
+          "type": 5,
+          "typeArguments": null
+        },
+        {
+          "name": "taker",
+          "type": 5,
+          "typeArguments": null
+        },
+        {
+          "name": "nonce",
+          "type": 12,
+          "typeArguments": null
+        },
+        {
+          "name": "expriy",
+          "type": 13,
+          "typeArguments": null
+        }
+      ],
+      "typeParameters": null
+    },
+    {
+      "typeId": 8,
+      "type": "struct OrderFillReturn",
+      "components": [
+        {
+          "name": "taker_fill_amount",
+          "type": 13,
+          "typeArguments": null
+        },
+        {
+          "name": "maker_fill_amount",
+          "type": 13,
           "typeArguments": null
         }
       ],
@@ -101,58 +187,6 @@ const _abi = {
     },
     {
       "typeId": 9,
-      "type": "struct LimitOrder",
-      "components": [
-        {
-          "name": "maker_token",
-          "type": 2,
-          "typeArguments": null
-        },
-        {
-          "name": "taker_token",
-          "type": 2,
-          "typeArguments": null
-        },
-        {
-          "name": "maker_amount",
-          "type": 14,
-          "typeArguments": null
-        },
-        {
-          "name": "taker_amount",
-          "type": 14,
-          "typeArguments": null
-        },
-        {
-          "name": "maker",
-          "type": 6,
-          "typeArguments": null
-        },
-        {
-          "name": "taker",
-          "type": 6,
-          "typeArguments": null
-        },
-        {
-          "name": "nonce",
-          "type": 13,
-          "typeArguments": null
-        },
-        {
-          "name": "expriy",
-          "type": 14,
-          "typeArguments": null
-        },
-        {
-          "name": "traits",
-          "type": 2,
-          "typeArguments": null
-        }
-      ],
-      "typeParameters": null
-    },
-    {
-      "typeId": 10,
       "type": "struct RawBytes",
       "components": [
         {
@@ -162,14 +196,14 @@ const _abi = {
         },
         {
           "name": "cap",
-          "type": 14,
+          "type": 13,
           "typeArguments": null
         }
       ],
       "typeParameters": null
     },
     {
-      "typeId": 11,
+      "typeId": 10,
       "type": "struct RawVec",
       "components": [
         {
@@ -179,7 +213,7 @@ const _abi = {
         },
         {
           "name": "cap",
-          "type": 14,
+          "type": 13,
           "typeArguments": null
         }
       ],
@@ -188,12 +222,12 @@ const _abi = {
       ]
     },
     {
-      "typeId": 12,
+      "typeId": 11,
       "type": "struct Vec",
       "components": [
         {
           "name": "buf",
-          "type": 11,
+          "type": 10,
           "typeArguments": [
             {
               "name": "",
@@ -204,7 +238,7 @@ const _abi = {
         },
         {
           "name": "len",
-          "type": 14,
+          "type": 13,
           "typeArguments": null
         }
       ],
@@ -213,13 +247,13 @@ const _abi = {
       ]
     },
     {
-      "typeId": 13,
+      "typeId": 12,
       "type": "u256",
       "components": null,
       "typeParameters": null
     },
     {
-      "typeId": 14,
+      "typeId": 13,
       "type": "u64",
       "components": null,
       "typeParameters": null
@@ -229,104 +263,27 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "txt",
+          "name": "order_hash",
+          "type": 1,
+          "typeArguments": null
+        },
+        {
+          "name": "amount",
+          "type": 13,
+          "typeArguments": null
+        },
+        {
+          "name": "receiver",
           "type": 5,
           "typeArguments": null
         },
         {
-          "name": "account",
+          "name": "callback_data",
           "type": 6,
           "typeArguments": null
         }
       ],
-      "name": "generate_msg_hash",
-      "output": {
-        "name": "",
-        "type": 2,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [],
-      "name": "get_count",
-      "output": {
-        "name": "",
-        "type": 14,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "order",
-          "type": 9,
-          "typeArguments": null
-        }
-      ],
-      "name": "get_order_hash",
-      "output": {
-        "name": "",
-        "type": 2,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "amount",
-          "type": 14,
-          "typeArguments": null
-        }
-      ],
-      "name": "increment_counter",
-      "output": {
-        "name": "",
-        "type": 14,
-        "typeArguments": null
-      },
-      "attributes": [
-        {
-          "name": "storage",
-          "arguments": [
-            "write",
-            "read"
-          ]
-        }
-      ]
-    },
-    {
-      "inputs": [
-        {
-          "name": "order",
-          "type": 9,
-          "typeArguments": null
-        }
-      ],
-      "name": "pack_order",
+      "name": "fill_single",
       "output": {
         "name": "",
         "type": 8,
@@ -334,6 +291,40 @@ const _abi = {
       },
       "attributes": [
         {
+          "name": "allow",
+          "arguments": [
+            "deprecated"
+          ]
+        },
+        {
+          "name": "storage",
+          "arguments": [
+            "write",
+            "read"
+          ]
+        },
+        {
+          "name": "payable",
+          "arguments": []
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "order",
+          "type": 7,
+          "typeArguments": null
+        }
+      ],
+      "name": "get_order_hash",
+      "output": {
+        "name": "",
+        "type": 1,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
           "name": "storage",
           "arguments": [
             "read"
@@ -344,17 +335,35 @@ const _abi = {
     {
       "inputs": [
         {
-          "name": "signature",
-          "type": 7,
-          "typeArguments": null
-        },
-        {
-          "name": "msg_hash",
-          "type": 2,
+          "name": "registry",
+          "type": 5,
           "typeArguments": null
         }
       ],
-      "name": "recover_signer",
+      "name": "initialize",
+      "output": {
+        "name": "",
+        "type": 0,
+        "typeArguments": null
+      },
+      "attributes": [
+        {
+          "name": "storage",
+          "arguments": [
+            "write"
+          ]
+        }
+      ]
+    },
+    {
+      "inputs": [
+        {
+          "name": "order",
+          "type": 7,
+          "typeArguments": null
+        }
+      ],
+      "name": "pack_order",
       "output": {
         "name": "",
         "type": 6,
@@ -373,11 +382,22 @@ const _abi = {
       "inputs": [
         {
           "name": "order_hashes",
-          "type": 12,
+          "type": 11,
           "typeArguments": [
             {
               "name": "",
-              "type": 2,
+              "type": 1,
+              "typeArguments": null
+            }
+          ]
+        },
+        {
+          "name": "amounts",
+          "type": 11,
+          "typeArguments": [
+            {
+              "name": "",
+              "type": 13,
               "typeArguments": null
             }
           ]
@@ -402,11 +422,22 @@ const _abi = {
       "inputs": [
         {
           "name": "order_hashes",
-          "type": 12,
+          "type": 11,
           "typeArguments": [
             {
               "name": "",
-              "type": 2,
+              "type": 1,
+              "typeArguments": null
+            }
+          ]
+        },
+        {
+          "name": "amounts",
+          "type": 11,
+          "typeArguments": [
+            {
+              "name": "",
+              "type": 13,
               "typeArguments": null
             }
           ]
@@ -428,14 +459,23 @@ const _abi = {
       ]
     }
   ],
-  "loggedTypes": [],
+  "loggedTypes": [
+    {
+      "logId": "15094927136620789666",
+      "loggedType": {
+        "name": "",
+        "type": 2,
+        "typeArguments": []
+      }
+    }
+  ],
   "messagesTypes": [],
   "configurables": []
 };
 
 const _storageSlots: StorageSlot[] = [
   {
-    "key": "6e3c7b4f69bbff7132c3c3a62883a6868f47b0bc2a7f21605f29038cd9a5e05f",
+    "key": "296ba0fcd31342a245a27d09dd3a727390a108f362c4b7bf3137adc7e58aa7e1",
     "value": "0000000000000000000000000000000000000000000000000000000000000000"
   }
 ];

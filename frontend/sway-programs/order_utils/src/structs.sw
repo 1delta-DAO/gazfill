@@ -10,7 +10,6 @@ pub struct LimitOrder {
     pub taker: Address,
     pub nonce: u256,
     pub expriy: u64,
-    pub traits: b256,
 }
 
 pub struct OrderState {
@@ -21,4 +20,17 @@ pub struct OrderState {
 pub struct OrderFillReturn {
     pub taker_fill_amount: u64,
     pub maker_fill_amount: u64,
+}
+
+// errors
+pub enum Error {
+    OrderNotDefined: (),
+    OrderReenter: (),
+    TryToFillMoreThanRequired: (),
+    SentAssetIdDoesNotMatchMakerToken: (),
+    SentAssetAmountDoesNotMatchFillAmount: (),
+    InsufficientTakerTokensReceivedFromCallback: (),
+    OnlySettlementCanInteract: (),
+    AlreadyIntitialized: (),
+    MakerHasNotEnoughFunds: (),
 }

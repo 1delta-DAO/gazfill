@@ -15,16 +15,10 @@ use std::{
 };
 
 // The abi defines the blueprint for the contract.
-abi FlashBookX {
-
-    // #[storage(read)]
-    // fn recover_signer(signature: B512, msg_hash: b256) -> Address;
-
-    // #[storage(read)]
-    // fn generate_msg_hash(txt: str, account: Address) -> b256;
-
+abi FlashLogSettlement {
     #[storage(read)]
     fn get_order_hash(order: LimitOrder) -> b256;
+
     #[storage(read)]
     fn pack_order(order: LimitOrder) -> Bytes;
 
@@ -36,11 +30,14 @@ abi FlashBookX {
 
     #[storage(write, read), payable]
     fn fill_single(
-        order: LimitOrder,
+        order_hash: b256,
         amount: u64,
         receiver: Address,
         callback_data: Bytes,
     ) -> OrderFillReturn;
+
+    #[storage(write)]
+    fn initialize(registry: Address);
 }
 
 // Flash callback to inject external liquidity
@@ -73,7 +70,47 @@ pub fn pack_order(order: LimitOrder) -> Bytes {
     encoded_order.append(order.taker.bits().to_be_bytes());
     encoded_order.append(order.nonce.to_be_bytes());
     encoded_order.append(order.expriy.to_be_bytes());
-    encoded_order.append(order.traits.to_be_bytes());
 
     encoded_order
+}
+
+pub const ZERO_B256: b256 = 0x0000000000000000000000000000000000000000000000000000000000000000;
+
+pub const EMPTY_ORDER: LimitOrder = LimitOrder {
+    maker_token: ZERO_B256,
+    taker_token: ZERO_B256,
+    maker_amount: 0,
+    taker_amount: 0,
+    maker: Address::from(ZERO_B256),
+    taker: Address::from(ZERO_B256),
+    nonce: 0,
+    expriy: 0,
+};
+
+// The abi defines the blueprint for the contract.
+abi FlashLogRegistry {
+    #[storage(write), payable]
+    fn create_order(
+        expriy: u64,
+        taker_amount: u64,
+        taker_asset: b256,
+        taker: Address,
+    ) -> b256;
+
+    #[storage(write), payable]
+    fn cancel_order(hash: b256) -> b256;
+
+    #[storage(write)]
+    fn pull_maker_funds(
+        maker: Address,
+        maker_asset: b256,
+        maker_amount: u64,
+        receiver: Address,
+    );
+
+    #[storage(write)]
+    fn initialize(settlement: Address);
+
+    #[storage(read)]
+    fn get_order(hash: b256) -> LimitOrder;
 }
