@@ -47,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" className="bg-black text-white">
       <head>
         <link rel="icon" href="/fuel.ico" />
-        <title>Fuel dApp</title>
+        <title>Gazfill</title>
       </head>
       <body>
         <React.StrictMode>

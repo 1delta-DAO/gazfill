@@ -1,3 +1,5 @@
+import { transition } from "./utils";
+
 interface ViewSelectorProps {
   views: string[];
   setView: (view: string) => void;
@@ -16,7 +18,7 @@ export const ViewSelector: React.FC<ViewSelectorProps> = ({ views, setView, sele
           return (
             <span
               key={index}
-              className={`w-full text-center ${selectedStyle(view)} p-2 rounded-md cursor-pointer border-2 transition-all duration-200 ease-in-out`}
+              className={`w-full text-center ${selectedStyle(view)} p-2 rounded-md cursor-pointer border-2 ${transition}`}
               onClick={() => setView(view)}
             >
               {view}
