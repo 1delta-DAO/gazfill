@@ -6,9 +6,9 @@ export default function Trade() {
 
   return (
     <>
-      <div className="flex w-full h-[700px] bg-zinc-800 gap-1 p-1 rounded-lg">
+      <div className="flex w-full h-[700px] bg-zinc-900 gap-2 rounded-lg">
         {/* LEFT SIDE */}
-        <div className="flex flex-col w-7/12 gap-1">
+        <div className="flex flex-col w-7/12 gap-2">
           {/* CHART INFO */}
           <div className="flex w-full h-[50px] bg-zinc-950 px-4 py-2 rounded-md items-center justify-between">
             <div className="flex gap-2">
@@ -38,7 +38,7 @@ export default function Trade() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex w-5/12 gap-1">
+        <div className="flex w-5/12 gap-2">
           <OrderbookAndTrades />
           <TradePanel />
         </div>

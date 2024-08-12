@@ -41,9 +41,11 @@ function Chart() {
   );
 
   return (
-    <div className="flex w-full h-[500px] bg-zinc-950 rounded-md overflow-hidden">
-      <div className='h-[102%] w-full relative -top-[4px] -left-[4px]'>
-        <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+    <div className='flex p-2 bg-zinc-950 rounded-md'>
+      <div className="flex w-full h-[500px] overflow-hidden">
+        <div className='h-[102%] w-full relative -top-[4px] -left-[4px]'>
+          <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+        </div>
       </div>
     </div>
   );

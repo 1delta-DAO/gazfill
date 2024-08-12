@@ -79,7 +79,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
       </Head>
       <Toaster />
       <div className="flex flex-col font-['Orbit']">
-        <nav className="flex justify-between items-center p-4 bg-black text-white gap-6">
+        <nav className="flex justify-between items-center p-4 bg-zinc-900 text-white gap-6">
           <Link href="/">Home</Link>
 
           <Link href="/trade">Trade</Link>
