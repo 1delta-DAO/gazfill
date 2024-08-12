@@ -101,7 +101,8 @@ impl FlashLogSettlement for Contract {
                 .flashCallback(
                     taker_fill_amount,
                     maker_fill_amount,
-                    order.maker,
+                    order.maker_token,
+                    order.taker_token,
                     callback_data,
                 );
             // get after balance of this

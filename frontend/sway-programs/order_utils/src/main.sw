@@ -46,7 +46,8 @@ abi FlashCallback {
     fn flashCallback(
         taker_fill_amount: u64,
         maker_fill_amount: u64,
-        maker: Address,
+        maker_token: b256,
+        taker_token: b256,
         callback_data: Bytes,
     );
 }
