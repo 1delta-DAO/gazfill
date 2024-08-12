@@ -13,7 +13,7 @@ function TradingViewWidget() {
       script.async = true;
       script.innerHTML = `
         {
-          "autosize": true,
+          "autosize": false,
           "symbol": "BINANCE:BTCUSDC",
           "interval": "240",
           "timezone": "Europe/Rome",
@@ -25,7 +25,8 @@ function TradingViewWidget() {
           "hide_top_toolbar": true,
           "allow_symbol_change": false,
           "calendar": false,
-          "support_host": "https://www.tradingview.com"
+          "support_host": "https://www.tradingview.com",
+          "width": "101%"
         }`;
       if (container.current) {
         container.current.appendChild(script);
@@ -40,7 +41,9 @@ function TradingViewWidget() {
   );
 
   return (
-    <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+    <div className='h-[102%] w-full relative -top-[4px] -left-[4px]'>
+      <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+    </div>
   );
 }
 

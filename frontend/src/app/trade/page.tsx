@@ -1,3 +1,4 @@
+import { OrderbookPanel } from "@/components/OrderbookPanel";
 import TradingViewWidget from "@/components/TradingViewWidget";
 
 
@@ -30,7 +31,7 @@ export default function Trade() {
             </div>
           </div>
           {/* CHART */}
-          <div className="flex w-full h-[500px] bg-zinc-950 rounded-md">
+          <div className="flex w-full h-[500px] bg-zinc-950 rounded-md overflow-hidden">
             <TradingViewWidget />
           </div>
           {/* TABLE */}
@@ -42,9 +43,7 @@ export default function Trade() {
         {/* RIGHT SIDE */}
         <div className="flex w-5/12 gap-1">
           {/* ORDERBOOK / TRADES */}
-          <div className="flex w-1/2 h-full bg-zinc-950 px-4 py-2 rounded-md">
-            Orderbook
-          </div>
+          <OrderbookPanel />
           {/* TRADE PANEL */}
           <div className="flex w-1/2 h-full bg-zinc-950 px-4 py-2 rounded-md">
             Trade Panel
