@@ -88,6 +88,7 @@ export const TradePanel = () => {
             />
           </div>
         </div>
+
         {/* SIZE */}
         <div className="flex flex-col gap-1 w-full">
           <div className="flex w-full justify-between">
@@ -100,13 +101,13 @@ export const TradePanel = () => {
             </button>
           </div>
           <div className="flex flex-col gap-2">
-            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none ${transition}`}>
+            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
               <input type="number" className="w-full" placeholder="0.00" value={btcSize || ""} onChange={(e) => setBtcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">BTC</span>
               </div>
             </label>
-            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none ${transition}`}>
+            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
               <input type="number" className="w-full" placeholder="0.00" value={usdcSize || ""} onChange={(e) => setUsdcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">USDC</span>
@@ -114,11 +115,13 @@ export const TradePanel = () => {
             </label>
           </div>
         </div>
+
         {/* AVAILABLE */}
         <div className="flex w-full justify-between text-xs">
           <span className="">Available</span>
           <span>{available} {isBuy ? "USDC" : "BTC"}</span>
         </div>
+
         {/* SLIDER */}
         <input
           type="range"

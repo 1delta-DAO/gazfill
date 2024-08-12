@@ -44,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   if (!isMounted) return null;
 
   return (
-    <html lang="en" className="bg-black text-white">
+    <html lang="en" className="bg-black text-white" data-theme="mytheme">
       <head>
         <link rel="icon" href="/fuel.ico" />
         <title>Gazfill</title>
