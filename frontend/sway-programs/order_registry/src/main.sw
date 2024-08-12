@@ -19,13 +19,7 @@ use order_utils::{
 use std::{b512::B512, ecr::{ec_recover, ec_recover_address, EcRecoverError}};
 use std::hash::*;
 use std::bytes::Bytes;
-use std::{
-    asset::transfer,
-    call_frames::msg_asset_id,
-    context::msg_amount,
-    context::msg_sender,
-    context::this_balance,
-};
+use std::{asset::transfer, call_frames::msg_asset_id, context::msg_amount, context::this_balance,};
 use std::storage::storage_vec::*;
 use std::revert::require;
 use std::{
@@ -102,13 +96,14 @@ impl FlashLogRegistry for Contract {
         // require sender to be settlement contract
         require(
             msg_sender()
+                .unwrap()
                 .bits() == storage
-                .order_settlement,
+                .order_settlement.read(),
             Error::OnlySettlementCanInteract,
         );
 
         // get funds of maker
-        let maker_funds = storage.deposits.get(maker).get(maker_token).read();
+        let maker_funds = storage.deposits.get(maker.bits()).get(maker_asset).read();
 
         // Cannot pull more than assigned
         require(maker_funds >= maker_amount, Error::MakerHasNotEnoughFunds);
@@ -116,8 +111,8 @@ impl FlashLogRegistry for Contract {
         // update deposit balance
         storage
             .deposits
-            .get(maker)
-            .insert(maker_token, maker_funds - maker_amount);
+            .get(maker.bits())
+            .insert(maker_asset, maker_funds - maker_amount);
 
         // transfer to receiver
         transfer(
@@ -135,11 +130,16 @@ impl FlashLogRegistry for Contract {
                 .read() != ZERO_B256,
             Error::AlreadyIntitialized,
         );
-        storage.order_settlement = settlement.bits();
+        storage.order_settlement.write(settlement.bits());
     }
 
     #[storage(read)]
     fn get_order(hash: b256) -> LimitOrder {
         return storage.hash_to_order.get(hash).read();
+    }
+
+    #[storage(write), payable]
+    fn cancel_order(hash: b256) -> b256 {
+        return ZERO_B256;
     }
 }

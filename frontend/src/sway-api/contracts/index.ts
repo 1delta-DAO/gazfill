@@ -10,7 +10,9 @@
 */
 
 export type { TestContractAbi } from './TestContractAbi';
-export type { OrdersAbi } from './OrdersAbi';
+export type { OrderSettlementAbi } from './OrderSettlementAbi';
+export type { OrderRegistryAbi } from './OrderRegistryAbi';
 
 export { TestContractAbi__factory } from './factories/TestContractAbi__factory';
-export { OrdersAbi__factory } from './factories/OrdersAbi__factory';
+export { OrderSettlementAbi__factory } from './factories/OrderSettlementAbi__factory';
+export { OrderRegistryAbi__factory } from './factories/OrderRegistryAbi__factory';

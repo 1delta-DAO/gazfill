@@ -36,8 +36,6 @@ storage {
     order_registry: b256 = ZERO_B256,
     // map order hash to state
     hash_to_order: StorageMap<b256, LimitOrder> = StorageMap {},
-    nonces: StorageMap<b256, u256> = StorageMap {},
-    deposits: StorageMap<b256, StorageMap<b256, u64>> = StorageMap {},
     locked_orders: StorageMap<b256, bool> = StorageMap {},
 }
 
@@ -170,6 +168,6 @@ impl FlashLogSettlement for Contract {
                 .read() != ZERO_B256,
             Error::AlreadyIntitialized,
         );
-        // storage.order_registry = registry.bits();
+        storage.order_registry.write(registry.bits());
     }
 }
