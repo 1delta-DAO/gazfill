@@ -88,7 +88,7 @@ impl FlashLogSettlement for Contract {
         transfer(
             Identity::Address(receiver),
             AssetId::from(order.maker_token),
-            taker_fill_amount,
+            maker_fill_amount,
         );
 
         // the callback allows using this function
