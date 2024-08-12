@@ -8,7 +8,7 @@ interface ViewSelectorProps {
 
 export const ViewSelector: React.FC<ViewSelectorProps> = ({ views, setView, selectedView }) => {
   const selectedStyle = (view: string) => {
-    return view === selectedView ? 'bg-zinc-900 border-zinc-900 hover:bg-zinc-900' : 'bg-zinc-950 border-zinc-900 hover:bg-zinc-900';
+    return view === selectedView ? 'bg-zinc-800 border-zinc-800 hover:bg-zinc-800' : 'bg-zinc-950 border-zinc-800 hover:bg-zinc-800';
   }
 
   return (

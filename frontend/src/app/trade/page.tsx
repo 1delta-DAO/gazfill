@@ -6,7 +6,7 @@ export default function Trade() {
 
   return (
     <>
-      <div className="flex w-full h-[700px] bg-zinc-900 gap-2 rounded-lg">
+      <div className="flex w-full h-[700px] bg-zinc-800 gap-2 rounded-lg">
         {/* LEFT SIDE */}
         <div className="flex flex-col w-7/12 gap-2">
           {/* CHART INFO */}

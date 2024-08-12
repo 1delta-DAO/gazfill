@@ -64,7 +64,7 @@ export const TradePanel = () => {
           <div className="flex flex-col w-full gap-1">
             <span className="text-xs">Type</span>
             <select
-              className={`select select-bordered w-full max-w-xs bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none ${transition}`}
+              className={`select select-bordered w-full max-w-xs bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none ${transition}`}
               onChange={(e) => setOrderType(e.target.value)}
             >
               {
@@ -81,7 +81,7 @@ export const TradePanel = () => {
             <input
               type="number"
               placeholder="0.00"
-              className={`input input-bordered w-full max-w-xs bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none ${transition}`}
+              className={`input input-bordered w-full max-w-xs bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none ${transition}`}
               onChange={(e) => setOrderPrice(parseFloat(e.target.value))}
               value={isLimit ? orderPrice || "" : BTC_PRICE}
               disabled={!isLimit}
@@ -101,13 +101,13 @@ export const TradePanel = () => {
             </button>
           </div>
           <div className="flex flex-col gap-2">
-            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
+            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
               <input type="number" className="w-full" placeholder="0.00" value={btcSize || ""} onChange={(e) => setBtcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">BTC</span>
               </div>
             </label>
-            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-900 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
+            <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
               <input type="number" className="w-full" placeholder="0.00" value={usdcSize || ""} onChange={(e) => setUsdcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">USDC</span>

@@ -42,7 +42,7 @@ export const OrderbookTable = () => {
         </tbody>
       </table>
 
-      <div className="flex gap-4 p-2 my-2 text-xs bg-zinc-900">
+      <div className="flex gap-4 p-2 my-2 text-xs bg-zinc-800">
         <span>Spread</span>
         <span>1,533</span>
         <span>1.12%</span>
