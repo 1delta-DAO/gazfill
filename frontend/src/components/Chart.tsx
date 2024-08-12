@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, memo } from 'react';
 
-function TradingViewWidget() {
+function Chart() {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(
@@ -41,10 +41,12 @@ function TradingViewWidget() {
   );
 
   return (
-    <div className='h-[102%] w-full relative -top-[4px] -left-[4px]'>
-      <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+    <div className="flex w-full h-[500px] bg-zinc-950 rounded-md overflow-hidden">
+      <div className='h-[102%] w-full relative -top-[4px] -left-[4px]'>
+        <div className="tradingview-widget-container" ref={container} style={{ height: "100%", width: "100%" }} />
+      </div>
     </div>
   );
 }
 
-export default memo(TradingViewWidget);
+export default memo(Chart);

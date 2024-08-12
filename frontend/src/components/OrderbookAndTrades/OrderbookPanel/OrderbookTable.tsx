@@ -1,4 +1,3 @@
-
 interface OrderRowProps {
   amount: string;
   price: string;

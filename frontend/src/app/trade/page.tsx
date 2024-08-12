@@ -1,5 +1,6 @@
+import Chart from "@/components/Chart";
 import { OrderbookAndTrades } from "@/components/OrderbookAndTrades";
-import TradingViewWidget from "@/components/TradingViewWidget";
+import { TradePanel } from "@/components/TradePanel";
 
 export default function Trade() {
 
@@ -29,10 +30,7 @@ export default function Trade() {
               <span>$60,350.68</span>
             </div>
           </div>
-          {/* CHART */}
-          <div className="flex w-full h-[500px] bg-zinc-950 rounded-md overflow-hidden">
-            <TradingViewWidget />
-          </div>
+          <Chart />
           {/* TABLE */}
           <div className="flex h-[150px] bg-zinc-950 px-4 py-2 rounded-md">
             Table
@@ -41,12 +39,8 @@ export default function Trade() {
 
         {/* RIGHT SIDE */}
         <div className="flex w-5/12 gap-1">
-          {/* ORDERBOOK / TRADES */}
           <OrderbookAndTrades />
-          {/* TRADE PANEL */}
-          <div className="flex w-1/2 h-full bg-zinc-950 px-4 py-2 rounded-md">
-            Trade Panel
-          </div>
+          <TradePanel />
         </div>
       </div>
     </>
