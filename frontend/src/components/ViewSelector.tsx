@@ -4,6 +4,7 @@ interface ViewSelectorProps {
   views: string[];
   setView: (view: string) => void;
   selectedView: string;
+  size?: string;
 }
 
 export const ViewSelector: React.FC<ViewSelectorProps> = ({ views, setView, selectedView }) => {
@@ -18,7 +19,7 @@ export const ViewSelector: React.FC<ViewSelectorProps> = ({ views, setView, sele
           return (
             <span
               key={index}
-              className={`w-full text-center ${selectedStyle(view)} p-2 rounded-md cursor-pointer border-2 ${transition}`}
+              className={`w-full text-center ${selectedStyle(view)} p-2 rounded-md cursor-pointer border-2 ${transition} text-xs`}
               onClick={() => setView(view)}
             >
               {view}
