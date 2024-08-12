@@ -1,6 +1,5 @@
-import { OrderbookPanel } from "@/components/OrderbookPanel";
+import { OrderbookAndTrades } from "@/components/OrderbookAndTrades";
 import TradingViewWidget from "@/components/TradingViewWidget";
-
 
 export default function Trade() {
 
@@ -43,7 +42,7 @@ export default function Trade() {
         {/* RIGHT SIDE */}
         <div className="flex w-5/12 gap-1">
           {/* ORDERBOOK / TRADES */}
-          <OrderbookPanel />
+          <OrderbookAndTrades />
           {/* TRADE PANEL */}
           <div className="flex w-1/2 h-full bg-zinc-950 px-4 py-2 rounded-md">
             Trade Panel
