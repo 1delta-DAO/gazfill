@@ -98,7 +98,8 @@ impl FlashLogRegistry for Contract {
             msg_sender()
                 .unwrap()
                 .bits() == storage
-                .order_settlement.read(),
+                .order_settlement
+                .read(),
             Error::OnlySettlementCanInteract,
         );
 

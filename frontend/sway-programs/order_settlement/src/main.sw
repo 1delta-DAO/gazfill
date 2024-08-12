@@ -5,6 +5,7 @@ use order_utils::{
     compute_taker_fill_amount,
     EMPTY_ORDER,
     FlashCallback,
+    FlashLogRegistry,
     FlashLogSettlement,
     pack_order,
     structs::{
@@ -90,6 +91,18 @@ impl FlashLogSettlement for Contract {
             AssetId::from(order.maker_token),
             maker_fill_amount,
         );
+
+        // pull funds from maker through the
+        // registry
+        abi(FlashLogRegistry, storage
+            .order_registry
+            .read())
+            .pull_maker_funds(
+                Address::from(order.maker),
+                order.maker_token,
+                maker_fill_amount,
+                receiver,
+            );
 
         // the callback allows using this function
         // without sending funds
