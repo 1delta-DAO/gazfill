@@ -49,7 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <link rel="icon" href="/fuel.ico" />
         <title>Gazfill</title>
       </head>
-      <body>
+      <body className="!overflow-y-auto">
         <React.StrictMode>
           <QueryClientProvider client={queryClient}>
             <FuelProvider

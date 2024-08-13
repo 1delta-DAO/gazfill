@@ -45,26 +45,32 @@ export const InfoTable = () => {
   return (
     <div className="flex flex-col bg-zinc-950 p-4 rounded-md gap-2">
       <ViewSelector views={tabs} selectedView={tab} setView={setTab} />
-      {tab === "Orders" ? <div className="overflow-x-auto w-full">
-        <table className="table table-xs">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Amount</th>
-              <th>Filled</th>
-              <th>Price</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            <OrderRow date="2021-10-01" type="Buy" amount={0.1} filled={0.1} price={60000} />
-            <OrderRow date="2021-10-02" type="Sell" amount={0.1} filled={0.1} price={61000} />
-            <OrderRow date="2021-10-03" type="Buy" amount={0.1} filled={0.1} price={62000} />
-            <OrderRow date="2021-10-04" type="Sell" amount={0.1} filled={0.1} price={63000} />
-          </tbody>
-        </table>
-      </div> : "No Data"}
+      {
+        tab === "Orders" ?
+        <div className="overflow-x-auto w-full">
+          <table className="table table-xs">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Filled</th>
+                <th>Price</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              <OrderRow date="2021-10-01" type="Buy" amount={0.1} filled={0.1} price={60000} />
+              <OrderRow date="2021-10-02" type="Sell" amount={0.1} filled={0.1} price={61000} />
+              <OrderRow date="2021-10-03" type="Buy" amount={0.1} filled={0.1} price={62000} />
+              <OrderRow date="2021-10-04" type="Sell" amount={0.1} filled={0.1} price={63000} />
+            </tbody>
+          </table>
+        </div> :
+        <div className="p-6 text-center">
+          <span>No Data</span>
+        </div>
+      }
     </div>
   )
 }
