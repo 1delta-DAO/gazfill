@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "fuels build",
+    "build:fuels": "fuels build",
     "fuels:dev": "fuels dev",
     "dev": "next dev",
-    "build": "npm run prebuild && next build",
+    "build": "npm run build:fuels && next build",
     "start": "next start",
     "lint": "eslint .",
     "test": "vitest"
