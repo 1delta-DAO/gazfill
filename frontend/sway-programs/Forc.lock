@@ -1,8 +1,4 @@
 [[package]]
-name = "core"
-source = "path+from-root-CC22FE9C5CBB0084"
-
-[[package]]
 name = "order_registry"
 source = "member"
 dependencies = [
@@ -25,8 +21,7 @@ dependencies = ["std"]
 
 [[package]]
 name = "std"
-source = "git+https://github.com/fuellabs/sway?tag=v0.61.2#e1b1c2bee73e0ba825e07736cefa6c0abd079595"
-dependencies = ["core"]
+source = "git+https://github.com/fuellabs/sway?tag=v0.68.1#7e1bc152face6f1ae20b4274d98446100920e573"
 
 [[package]]
 name = "test-contract"

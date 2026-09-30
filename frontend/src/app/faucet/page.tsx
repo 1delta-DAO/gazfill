@@ -5,7 +5,7 @@ import { Input } from "@/components/Input";
 import { useActiveWallet } from "@/hooks/useActiveWallet";
 import { useFaucet } from "@/hooks/useFaucet";
 import { bn } from "fuels";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Faucet() {
@@ -14,14 +14,14 @@ export default function Faucet() {
 
   const { wallet, refreshWalletBalance } = useActiveWallet();
 
-  const [receiverAddress, setReceiverAddress] = useState<string>("");
+  const [receiverOverride, setReceiverOverride] = useState<{ walletAddress: string; value: string }>();
   const [amountToSend, setAmountToSend] = useState<string>("5");
 
-  useEffect(() => {
-    if (wallet) {
-      setReceiverAddress(wallet.address.toB256());
-    }
-  }, [wallet]);
+  const walletAddress = wallet?.address.toB256() ?? "";
+  const receiverAddress =
+    receiverOverride?.walletAddress === walletAddress
+      ? receiverOverride.value
+      : walletAddress;
 
   const sendFunds = async () => {
     if (!faucetWallet) {
@@ -59,7 +59,7 @@ export default function Faucet() {
         <Input
           className="w-full"
           value={receiverAddress}
-          onChange={(e) => setReceiverAddress(e.target.value)}
+          onChange={(e) => setReceiverOverride({ walletAddress, value: e.target.value })}
           placeholder="0x..."
           id="receiver-address-input"
         />

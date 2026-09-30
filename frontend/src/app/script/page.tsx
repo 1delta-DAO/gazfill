@@ -6,8 +6,8 @@ import { Input } from "@/components/Input";
 import { Link } from "@/components/Link";
 import { useActiveWallet } from "@/hooks/useActiveWallet";
 import { FAUCET_LINK } from "@/lib";
-import { TestScriptAbi__factory } from "@/sway-api";
-import { BN, BigNumberish, Script, bn } from "fuels";
+import { TestScript } from "@/sway-api";
+import { bn } from "fuels";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAsync from "react-use/lib/useAsync";
@@ -15,14 +15,14 @@ import useAsync from "react-use/lib/useAsync";
 export default function ScriptExample() {
   const { wallet } = useActiveWallet();
 
-  const [script, setScript] = useState<Script<[input: BigNumberish], BN>>();
+  const [script, setScript] = useState<TestScript>();
   const [input, setInput] = useState<string>();
   const [result, setResult] = useState<string>();
 
   useAsync(async () => {
     if (wallet) {
       // Initialize script instance
-      const script = TestScriptAbi__factory.createInstance(wallet);
+      const script = new TestScript(wallet);
       setScript(script);
     }
   }, [wallet]);

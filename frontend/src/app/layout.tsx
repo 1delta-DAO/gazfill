@@ -3,7 +3,7 @@
 import { Layout } from "@/components/Layout";
 import "@/styles/globals.css";
 import { FuelProvider } from "@fuels/react";
-import React, { ReactNode, useEffect, useMemo, useState } from "react";
+import React, { ReactNode, useMemo, useSyncExternalStore } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Provider } from "fuels";
 import {
@@ -23,25 +23,16 @@ import { ActiveWalletProvider } from "@/hooks/useActiveWallet";
  */
 const queryClient = new QueryClient();
 
+const subscribeToMount = () => () => {};
+const hasMounted = () => true;
+const hasNotMounted = () => false;
+
 interface RootLayoutProps {
   children: ReactNode;
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  /**
-   * Create a Provider instance.
-   * We memoize it to avoid creating a new instance on every render.
-   */
-  const providerToUse = useMemo(() => Provider.create(NODE_URL), [NODE_URL]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Only render the component if the page has been mounted.
-  if (!isMounted) return null;
+  const isMounted = useSyncExternalStore(subscribeToMount, hasMounted, hasNotMounted);
 
   return (
     <html lang="en" className="bg-zinc-800 text-white" data-theme="mytheme">
@@ -50,36 +41,35 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <title>Gazfill</title>
       </head>
       <body className="!overflow-y-auto">
-        <React.StrictMode>
-          <QueryClientProvider client={queryClient}>
-            <FuelProvider
-              fuelConfig={{
-                /**
-                 * The list of wallet connectors.
-                 * You can add or remove connectors from here based on your needs.
-                 * See https://wallet.fuel.network/docs/dev/connectors/
-                 */
-                connectors: [
-                  new FuelWalletConnector(),
-                  new BurnerWalletConnector({
-                    fuelProvider: providerToUse,
-                  }),
-                  new WalletConnectConnector({
-                    fuelProvider: providerToUse,
-                  }),
-                  new BakoSafeConnector(),
-                  new FueletWalletConnector(),
-                  new FuelWalletDevelopmentConnector(),
-                ],
-              }}
-            >
-              <ActiveWalletProvider>
-                <Layout>{children}</Layout>
-              </ActiveWalletProvider>
-            </FuelProvider>
-          </QueryClientProvider>
-        </React.StrictMode>
+        {isMounted && <WalletProviders>{children}</WalletProviders>}
       </body>
     </html>
+  );
+}
+
+function WalletProviders({ children }: RootLayoutProps) {
+  const providerToUse = useMemo(() => new Provider(NODE_URL).init(), []);
+
+  return (
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <FuelProvider
+          fuelConfig={{
+            connectors: [
+              new FuelWalletConnector(),
+              new BurnerWalletConnector({ fuelProvider: providerToUse }),
+              new WalletConnectConnector({ fuelProvider: providerToUse }),
+              new BakoSafeConnector(),
+              new FueletWalletConnector(),
+              new FuelWalletDevelopmentConnector(),
+            ],
+          }}
+        >
+          <ActiveWalletProvider>
+            <Layout>{children}</Layout>
+          </ActiveWalletProvider>
+        </FuelProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
   );
 }

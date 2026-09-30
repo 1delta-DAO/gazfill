@@ -28,34 +28,38 @@
 
 ## Installation
 
+The backend uses NestJS 11 with Express 5. Use Node.js 22.12+ (or Node.js 20.19.x) for the workspace frontend tooling. From the repository root:
+
 ```bash
-$ yarn install
+pnpm install --frozen-lockfile
+pnpm --filter backend build
+pnpm --filter backend exec jest --runInBand
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ yarn run start
+pnpm --filter backend start
 
 # watch mode
-$ yarn run start:dev
+pnpm --filter backend start:dev
 
-# production mode
-$ yarn run start:prod
+# production mode (after build)
+pnpm --filter backend start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ yarn run test
+pnpm --filter backend exec jest --runInBand
 
 # e2e tests
-$ yarn run test:e2e
+pnpm --filter backend exec jest --config ./test/jest-e2e.json --runInBand
 
 # test coverage
-$ yarn run test:cov
+pnpm --filter backend test:cov
 ```
 
 ## Support

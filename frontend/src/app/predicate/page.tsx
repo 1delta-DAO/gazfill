@@ -6,19 +6,17 @@ import { Input } from "@/components/Input";
 import { Link } from "@/components/Link";
 import { useActiveWallet } from "@/hooks/useActiveWallet";
 import { FAUCET_LINK } from "@/lib";
-import { TestPredicateAbi__factory } from "@/sway-api/predicates/index";
-import { BN, InputValue, Predicate } from "fuels";
-import { bn } from "fuels";
+import { TestPredicate } from "@/sway-api/predicates";
+import { BN, bn } from "fuels";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useAsync from "react-use/lib/useAsync";
 
 export default function PredicateExample() {
-  let baseAssetId: string;
 
   const { wallet, walletBalance, refreshWalletBalance } = useActiveWallet();
 
-  const [predicate, setPredicate] = useState<Predicate<InputValue[]>>();
+  const [predicate, setPredicate] = useState<TestPredicate>();
 
   const [predicateBalance, setPredicateBalance] = useState<BN>();
 
@@ -26,11 +24,8 @@ export default function PredicateExample() {
 
   useAsync(async () => {
     if (wallet) {
-      baseAssetId = wallet.provider.getBaseAssetId();
       // Initialize a new predicate instance
-      const predicate = TestPredicateAbi__factory.createInstance(
-        wallet.provider,
-      );
+      const predicate = new TestPredicate({ provider: wallet.provider, data: [bn(0)] });
       setPredicate(predicate);
       setPredicateBalance(await predicate.getBalance());
     }
@@ -51,6 +46,7 @@ export default function PredicateExample() {
         return toast.error("Wallet not loaded");
       }
 
+      const baseAssetId = await wallet.provider.getBaseAssetId();
       await wallet.transfer(predicate.address, amount, baseAssetId, {
         gasLimit: 10_000,
       });
@@ -79,10 +75,10 @@ export default function PredicateExample() {
       }
 
       // Initialize a new predicate instance with the entered pin
-      const reInitializePredicate = TestPredicateAbi__factory.createInstance(
-        wallet.provider,
-        [bn(pin)],
-      );
+      const reInitializePredicate = new TestPredicate({
+        provider: wallet.provider,
+        data: [bn(pin)],
+      });
 
       if (!reInitializePredicate) {
         return toast.error("Failed to initialize predicate");
@@ -93,6 +89,7 @@ export default function PredicateExample() {
         If the pin is correct, this transfer transaction will succeed.
         If the pin is incorrect, this transaction will fail.
        */
+      const baseAssetId = await wallet.provider.getBaseAssetId();
       const tx = await reInitializePredicate.transfer(
         wallet.address,
         amount,
@@ -168,7 +165,7 @@ export default function PredicateExample() {
       </Button>
 
       <span className="mt-8 w-[400px] text-gray-400">
-        Do note that when you 'unlock' a predicate, the predicate also pays for
+        Do note that when you &apos;unlock&apos; a predicate, the predicate also pays for
         the gas of the transaction. <br />
         This is why you will notice that the balance of the predicate gets
         reduced by 0.09 ETH + a nominal gas fee.
