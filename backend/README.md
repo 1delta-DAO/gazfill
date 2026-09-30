@@ -32,6 +32,8 @@
 $ yarn install
 ```
 
+The backend now uses NestJS 11 with Express 5. Use Node.js 20.9+ (Node.js 22 recommended). From the repository root, `pnpm install --frozen-lockfile` installs both backend and frontend using the patched workspace lockfile; then `pnpm --filter backend build` and `pnpm --filter backend exec jest --runInBand` verify the service locally.
+
 ## Running the app
 
 ```bash

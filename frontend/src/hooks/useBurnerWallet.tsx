@@ -21,12 +21,12 @@ export const useBurnerWallet: () => AppWallet = () => {
     let wallet: WalletUnlocked;
 
     if (burnerWalletPk) {
-      const provider = await Provider.create(NODE_URL);
+      const provider = await new Provider(NODE_URL).init();
       wallet = Wallet.fromPrivateKey(burnerWalletPk, provider);
       setBurnerWallet(wallet);
     } else {
       // if not, create a new burner wallet
-      const provider = await Provider.create(NODE_URL);
+      const provider = await new Provider(NODE_URL).init();
       wallet = Wallet.generate({ provider });
 
       localStorage.setItem(BURNER_WALLET_LOCAL_STORAGE_KEY, wallet.privateKey);

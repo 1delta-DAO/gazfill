@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, useContext, useMemo } from "react";
+import { useEffect, createContext, useContext } from "react";
 import { useBrowserWallet } from "./useBrowserWallet";
 import { useBurnerWallet } from "./useBurnerWallet";
 import { AppWallet } from "@/lib";
@@ -10,7 +10,6 @@ import { AppWallet } from "@/lib";
  * Whenever a browser wallet is connected, this hook will return an instance of the browser wallet.
  * Otherwise, it will return an instance of a local burner wallet.
  */
-type WalletTypes = "burner" | "browser";
 
 const ActiveWalletContext = createContext<AppWallet>({});
 
@@ -19,7 +18,6 @@ export const ActiveWalletProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [activeWallet, setActiveWallet] = useState<WalletTypes>("burner");
   const {
     wallet: burnerWallet,
     walletBalance: burnerWalletBalance,
@@ -32,15 +30,15 @@ export const ActiveWalletProvider = ({
     isConnected: isBrowserWalletConnected,
   } = useBrowserWallet();
 
+  const activeWallet = isBrowserWalletConnected ? "browser" : "burner";
+
   useEffect(() => {
     if (isBrowserWalletConnected) {
-      setActiveWallet("browser");
       refreshBrowserWalletBalance?.();
     } else {
-      setActiveWallet("burner");
       refreshBurnerWalletBalance?.();
     }
-  }, [isBrowserWalletConnected]);
+  }, [isBrowserWalletConnected, refreshBrowserWalletBalance, refreshBurnerWalletBalance]);
 
   const value = {
     wallet: activeWallet === "browser" ? browserWallet : burnerWallet,

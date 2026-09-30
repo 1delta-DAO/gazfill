@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ViewSelector } from "../ViewSelector";
 import { transition } from "../utils";
 
@@ -24,36 +24,34 @@ export const TradePanel = () => {
   const handleMax = () => {
     if (isBuy) {
       setUsdcSize(available);
+      setBtcSize(available / BTC_PRICE);
     } else {
       setBtcSize(available);
+      setUsdcSize(available * BTC_PRICE);
     }
   }
 
   const BTC_PRICE = 60350;
 
-  useEffect(() => {
-    const newValue = btcSize * BTC_PRICE;
-    if (newValue !== usdcSize) {
-      setUsdcSize(newValue);
-    }
-  }, [btcSize]);
+  const updateBtcSize = (size: number) => {
+    setBtcSize(size);
+    setUsdcSize(size * BTC_PRICE);
+  };
 
-  useEffect(() => {
-    const newValue = usdcSize / BTC_PRICE;
-    if (newValue !== btcSize) {
-      setBtcSize(newValue);
-    }
-  }, [usdcSize]);
+  const updateUsdcSize = (size: number) => {
+    setUsdcSize(size);
+    setBtcSize(size / BTC_PRICE);
+  };
 
-  // on slider change, update size
-  useEffect(() => {
-    const newValue = sliderSize * available * 0.01;
+  const updateSliderSize = (size: number) => {
+    setSliderSize(size);
+    const sizeAvailable = size * available * 0.01;
     if (isBuy) {
-      setUsdcSize(newValue);
+      updateUsdcSize(sizeAvailable);
     } else {
-      setBtcSize(newValue);
+      updateBtcSize(sizeAvailable);
     }
-  }, [sliderSize]);
+  };
 
   return (
     <div className="flex flex-col w-1/2 h-full bg-zinc-950 p-4 rounded-md gap-4">
@@ -102,13 +100,13 @@ export const TradePanel = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
-              <input type="number" className="w-full" placeholder="0.00" value={btcSize || ""} onChange={(e) => setBtcSize(parseFloat(e.target.value))} />
+              <input type="number" className="w-full" placeholder="0.00" value={btcSize || ""} onChange={(e) => updateBtcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">BTC</span>
               </div>
             </label>
             <label className={`input input-bordered flex items-center gap-2 w-full bg-zinc-950 border-2 border-zinc-800 outline-none focus:outline-none focus-within:outline-none ${transition}`}>
-              <input type="number" className="w-full" placeholder="0.00" value={usdcSize || ""} onChange={(e) => setUsdcSize(parseFloat(e.target.value))} />
+              <input type="number" className="w-full" placeholder="0.00" value={usdcSize || ""} onChange={(e) => updateUsdcSize(parseFloat(e.target.value))} />
               <div className="flex w-[40%] justify-end">
                 <span className="badge">USDC</span>
               </div>
@@ -128,7 +126,7 @@ export const TradePanel = () => {
           min="0"
           max="100"
           value={sliderSize}
-          onChange={(e) => setSliderSize(parseFloat(e.target.value))}
+          onChange={(e) => updateSliderSize(parseFloat(e.target.value))}
           className="range range-xs"
         />
 

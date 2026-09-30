@@ -12,7 +12,7 @@ export const useFaucet = () => {
 
   useAsync(async () => {
     if (!faucetWallet) {
-      const provider = await Provider.create(NODE_URL);
+      const provider = await new Provider(NODE_URL).init();
       const wallet = Wallet.fromPrivateKey(FAUCET_PRIVATE_KEY, provider);
       setFaucetWallet(wallet);
     }
